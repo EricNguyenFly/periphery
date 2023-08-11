@@ -41,11 +41,12 @@ contract ArthurRouter is IArthurRouter {
     uint amountADesired,
     uint amountBDesired,
     uint amountAMin,
-    uint amountBMin
+    uint amountBMin,
+    uint256 timeLock
   ) internal returns (uint amountA, uint amountB) {
     // create the pair if it doesn't exist yet
     if (IArthurFactory(factory).getPair(tokenA, tokenB) == address(0)) {
-      IArthurFactory(factory).createPair(tokenA, tokenB);
+      IArthurFactory(factory).createPair(tokenA, tokenB, timeLock);
     }
     (uint reserveA, uint reserveB) = UniswapV2Library.getReserves(factory, tokenA, tokenB);
     if (reserveA == 0 && reserveB == 0) {
@@ -72,9 +73,10 @@ contract ArthurRouter is IArthurRouter {
     uint amountAMin,
     uint amountBMin,
     address to,
-    uint deadline
+    uint deadline,
+    uint256 timeLock
   ) external override ensure(deadline) returns (uint amountA, uint amountB, uint liquidity) {
-    (amountA, amountB) = _addLiquidity(tokenA, tokenB, amountADesired, amountBDesired, amountAMin, amountBMin);
+    (amountA, amountB) = _addLiquidity(tokenA, tokenB, amountADesired, amountBDesired, amountAMin, amountBMin, timeLock);
     address pair = UniswapV2Library.pairFor(factory, tokenA, tokenB);
     TransferHelper.safeTransferFrom(tokenA, msg.sender, pair, amountA);
     TransferHelper.safeTransferFrom(tokenB, msg.sender, pair, amountB);
@@ -87,7 +89,8 @@ contract ArthurRouter is IArthurRouter {
     uint amountTokenMin,
     uint amountETHMin,
     address to,
-    uint deadline
+    uint deadline,
+    uint256 timeLock
   ) external override payable ensure(deadline) returns (uint amountToken, uint amountETH, uint liquidity) {
     (amountToken, amountETH) = _addLiquidity(
       token,
@@ -95,7 +98,8 @@ contract ArthurRouter is IArthurRouter {
       amountTokenDesired,
       msg.value,
       amountTokenMin,
-      amountETHMin
+      amountETHMin,
+      timeLock
     );
     address pair = UniswapV2Library.pairFor(factory, token, WETH);
     TransferHelper.safeTransferFrom(token, msg.sender, pair, amountToken);
