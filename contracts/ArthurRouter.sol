@@ -121,7 +121,7 @@ contract ArthurRouter is IArthurRouter {
     uint deadline
   ) public override ensure(deadline) returns (uint amountA, uint amountB) {
     address pair = UniswapV2Library.pairFor(factory, tokenA, tokenB);
-    require(IArthurPair(pair).timeLock() > block.timestamp, "ArthurRouter: INVALID_TIME_LOCK");
+    require(block.timestamp >= IArthurPair(pair).timeLock(), "ArthurRouter: INVALID_TIME_LOCK");
     IArthurPair(pair).transferFrom(msg.sender, pair, liquidity);
     // send liquidity to pair
     (uint amount0, uint amount1) = IArthurPair(pair).burn(to);
