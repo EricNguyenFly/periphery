@@ -46,6 +46,7 @@ describe('ArthurRouter', () => {
     describe('addLiquidity', async () => {
         it('should return successfully', async () => {
             const currentTimestamp = await getCurrentTimestamp();
+            await arthurFactory.createPair(tokenA.address, tokenB.address, currentTimestamp + ONE_DAY);
             await arthurRouter.addLiquidity(tokenA.address, tokenB.address, ETHER_100K, ETHER_100K.div(2), ETHER_100K, ETHER_100K.div(2), owner.address, currentTimestamp + ONE_DAY, currentTimestamp + ONE_DAY);
         });
     });
