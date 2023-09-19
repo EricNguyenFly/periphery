@@ -42,7 +42,7 @@ contract ArthurRouter is IArthurRouter {
     uint amountBDesired,
     uint amountAMin,
     uint amountBMin,
-    uint256 timeLock
+    uint timeLock
   ) internal returns (uint amountA, uint amountB) {
     // create the pair if it doesn't exist yet
     if (IArthurFactory(factory).getPair(tokenA, tokenB) == address(0)) {
@@ -74,7 +74,7 @@ contract ArthurRouter is IArthurRouter {
     uint amountBMin,
     address to,
     uint deadline,
-    uint256 timeLock
+    uint timeLock
   ) external override ensure(deadline) returns (uint amountA, uint amountB, uint liquidity) {
     (amountA, amountB) = _addLiquidity(tokenA, tokenB, amountADesired, amountBDesired, amountAMin, amountBMin, timeLock);
     address pair = UniswapV2Library.pairFor(factory, tokenA, tokenB);
@@ -90,7 +90,7 @@ contract ArthurRouter is IArthurRouter {
     uint amountETHMin,
     address to,
     uint deadline,
-    uint256 timeLock
+    uint timeLock
   ) external override payable ensure(deadline) returns (uint amountToken, uint amountETH, uint liquidity) {
     (amountToken, amountETH) = _addLiquidity(
       token,
