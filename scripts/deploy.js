@@ -18,16 +18,16 @@ async function main() {
     //* Loading contract factory */
     const ArthurRouter = await ethers.getContractFactory("ArthurRouter");
 
-    // const factory = "0x95D37Feb6e4Df0F1d17DcB80A755f8DAb849C71F";
-    // const weth = "0x451a32Fe376a699Ea25b6Cafc00E446ECC8452A9";
+    const factory = "0xc65a8b166c2b6C386ee0B6CD7dFd3e502793B2c4";
+    const weth = "0x451a32Fe376a699Ea25b6Cafc00E446ECC8452A9";
 
     // sepolia
     // const factory = "0x9F423958b0e02d6C60D1714a37bc627C23C7d048";
     // const weth = "0xc82f14458f68f076A4f2E756dB24B56A3C670bB4";
 
     // mumbai 
-    const factory = "0x943931387b8659A74752c8D7B890870899b4Fdaf";
-    const weth = "0xc82f14458f68f076A4f2E756dB24B56A3C670bB4";
+    // const factory = "0x943931387b8659A74752c8D7B890870899b4Fdaf";
+    // const weth = "0xc82f14458f68f076A4f2E756dB24B56A3C670bB4";
 
     //* Deploy contracts */
     console.log("==========================================================================");
